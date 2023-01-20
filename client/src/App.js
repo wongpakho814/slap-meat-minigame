@@ -10,10 +10,8 @@ import { setContext } from "@apollo/client/link/context";
 
 import "./App.css";
 
-import Header from "./pages/Header";
+import Nav from "./components/Nav";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Highscore from "./pages/Highscore";
 import Footer from "./components/Footer";
 
@@ -33,7 +31,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache(), 
 });
 
 function App() {
@@ -41,12 +39,10 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <Header />
+          <Nav />
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
               <Route path="/highscore" element={<Highscore />} />
             </Routes>
           </div>
