@@ -1,8 +1,9 @@
 import React from "react";
 import Ably from "./Ably";
+import axios from "axios";
 
 function commentForm(props) {
-  const addComment = (event) => {
+  const addComment = async (event) => {
     event.preventDefault();
 
     // Get the value of the comment box
@@ -12,9 +13,16 @@ function commentForm(props) {
 
     // Get the current time.
     const timestamp = Date.now();
+
+    // Retrieve a random image from the Dog API
+    const avatar = await (
+      await axios.get("https://dog.ceo/api/breeds/image/random")
+    ).data.message;
+
     // Make sure name and comment boxes are filled
     if (name && comment) {
-      const commentObject = { name, comment, timestamp };
+      const commentObject = { name, comment, timestamp, avatar };
+
       // Publish comment
       const channel = Ably.channels.get("comments");
       channel.publish("add_comment", commentObject, (err) => {
@@ -22,6 +30,7 @@ function commentForm(props) {
           console.log("Unable to publish message err = " + err.message);
         }
       });
+
       // Clear input fields
       event.target.elements.name.value = "";
       event.target.elements.comment.value = "";
