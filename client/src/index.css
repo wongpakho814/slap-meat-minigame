@@ -1,13 +1,48 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  scroll-behavior: smooth;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  background-color: #d9dcd6;
+  margin: 0px;
+}
+
+.btn-success, .btn-success:disabled {
+  color: #343a40 !important; 
+  background-color: #ffbd03 !important;
+  border-color: #ffbd03 !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #343a40 !important;
+}
+
+.nav-item a {
+  color: #343a40;
+}
+
+.nav-item a:hover {
+  color: black;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40;
+}
+
+footer a {
+  margin-left: 25px;
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #d9dcd6;
+  text-decoration: none;
 }

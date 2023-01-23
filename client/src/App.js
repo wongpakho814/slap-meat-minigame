@@ -8,8 +8,6 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import "./App.css";
-
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Highscore from "./pages/Highscore";
