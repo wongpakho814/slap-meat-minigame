@@ -2,6 +2,8 @@ import React from "react";
 import Ably from "./Ably";
 import axios from "axios";
 
+import Auth from "../utils/auth";
+
 function commentForm(props) {
   const addComment = async (event) => {
     event.preventDefault();
@@ -38,33 +40,39 @@ function commentForm(props) {
   };
   return (
     <div className="container">
-      <h1 className="title">Please leave your feedback below</h1>
-      <form onSubmit={addComment}>
-        <div className="field">
-          <div className="control">
-            <input
-              type="text"
-              className="input"
-              name="name"
-              placeholder="Your name"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <div className="control">
-            <textarea
-              className="textarea"
-              name="comment"
-              placeholder="Add a comment"
-            ></textarea>
-          </div>
-        </div>
-        <div className="field">
-          <div className="control">
-            <button className="button is-primary">Submit</button>
-          </div>
-        </div>
-      </form>
+      {Auth.loggedIn() ? (
+        <>
+          <h1 className="title">Please leave your feedback below</h1>
+          <form onSubmit={addComment}>
+            <div className="field">
+              <div className="control">
+                <input
+                  type="text"
+                  className="input"
+                  name="name"
+                  placeholder="Your name"
+                />
+              </div>
+            </div>
+            <div className="field">
+              <div className="control">
+                <textarea
+                  className="textarea"
+                  name="comment"
+                  placeholder="Add a comment"
+                ></textarea>
+              </div>
+            </div>
+            <div className="field">
+              <div className="control">
+                <button className="button is-primary">Submit</button>
+              </div>
+            </div>
+          </form>
+        </>
+      ) : (
+        <h1 className="title">You must login before leaving a comment!</h1>
+      )}
     </div>
   );
 }
