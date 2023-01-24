@@ -11,7 +11,7 @@ function commentForm(props) {
     // Get the value of the comment box
     // and make sure it not some empty strings
     const comment = event.target.elements.comment.value.trim();
-    const name = event.target.elements.name.value.trim();
+    const name = Auth.getProfile().data.username;
 
     // Get the current time.
     const timestamp = Date.now();
@@ -34,39 +34,25 @@ function commentForm(props) {
       });
 
       // Clear input fields
-      event.target.elements.name.value = "";
       event.target.elements.comment.value = "";
     }
   };
   return (
-    <div className="container">
+    <div className="container" id="comment-form-container">
       {Auth.loggedIn() ? (
         <>
-          <h1 className="title">Please leave your feedback below</h1>
           <form onSubmit={addComment}>
-            <div className="field">
-              <div className="control">
-                <input
-                  type="text"
-                  className="input"
-                  name="name"
-                  placeholder="Your name"
-                />
-              </div>
-            </div>
-            <div className="field">
+            <div className="field" id="comment-box">
               <div className="control">
                 <textarea
                   className="textarea"
                   name="comment"
-                  placeholder="Add a comment"
+                  placeholder="Add a comment here"
                 ></textarea>
               </div>
             </div>
-            <div className="field">
-              <div className="control">
-                <button className="button is-primary">Submit</button>
-              </div>
+            <div className="field" id="submit-comment">
+              <button className="button is-primary">Submit</button>
             </div>
           </form>
         </>

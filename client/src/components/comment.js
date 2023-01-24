@@ -15,7 +15,7 @@ const messageDateGet = (props) => {
 
 function Comment(props) {
     return (
-      <article className="media">
+      <article className="media" id={`${props.comment.timestamp}`}>
         <figure className="media-left">
           <p className="image is-64x64">
             <img alt="dog pic" src={props.comment.avatar} />

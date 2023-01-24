@@ -28,18 +28,18 @@ class Home extends Component {
   handleAddComment(comment) {
     this.setState((prevState) => {
       return {
-        comments: [comment].concat(prevState.comments),
+        comments: (prevState.comments).concat([comment]),
       };
     });
   }
   render() {
     return (
-      <section className="section">
-        <div className="container">
+      <section className="section" id="comment-area-section">
+        <div className="container" id="comment-area-container">
           <div className="columns">
-            <div className="column is-half is-offset-one-quarter">
-              <CommentForm />
+            <div className="column">
               <Comments comments={this.state.comments} />
+              <CommentForm />
             </div>
           </div>
         </div>

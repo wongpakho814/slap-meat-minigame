@@ -38,7 +38,7 @@ function App() {
       <Router>
         <div>
           <Nav />
-          <div className="container">
+          <div id="main-div">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/highscore" element={<Highscore />} />
