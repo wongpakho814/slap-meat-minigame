@@ -9,11 +9,9 @@ function Comments(props) {
     <section className="section" id="comment-section">
       {props.comments.map((comment, index) => {
         comments.push(comment.timestamp);
-        console.log(comments);
         // Remove the rendered comments from the DOM if more than 5 comments are rendered already
-        if (comments.length > 5) {
-            console.log(document.getElementById(comments[0]));
-            // document.getElementById(comments[0]).remove();
+        if (comments.length > 4) {
+            document.getElementById(comments[0]).remove();
             comments.shift();
         }
         return <Comment key={comment.timestamp} comment={comment} />;
