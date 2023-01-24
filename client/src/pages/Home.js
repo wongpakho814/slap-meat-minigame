@@ -27,8 +27,15 @@ class Home extends Component {
   }
   handleAddComment(comment) {
     this.setState((prevState) => {
+      let newState = prevState;
+      if (prevState.comments.length > 4) {
+        newState = prevState.comments.shift();
+        newState = prevState.comments.concat([comment]);
+      } else {
+        newState = prevState.comments.concat([comment]);
+      }
       return {
-        comments: (prevState.comments).concat([comment]),
+        comments: newState
       };
     });
   }
