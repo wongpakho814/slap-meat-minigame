@@ -28,7 +28,8 @@ class Home extends Component {
   handleAddComment(comment) {
     this.setState((prevState) => {
       let newState = prevState;
-      if (prevState.comments.length > 4) {
+      // Remove the oldest comment if there are 5 comments being rendered on screen already
+      if (prevState.comments.length > 5) {
         newState = prevState.comments.shift();
         newState = prevState.comments.concat([comment]);
       } else {

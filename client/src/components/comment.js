@@ -13,9 +13,9 @@ const messageDateGet = (props) => {
   return localeString;
 };
 
-function Comment(props) {
+const Comment = (props) => {
     return (
-      <article className="media" id={`${props.comment.timestamp}`}>
+      <article className="media">
         <figure className="media-left">
           <p className="image is-64x64">
             <img alt="dog pic" src={props.comment.avatar} />

@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Ably from "./Ably";
 import axios from "axios";
 
 import Auth from "../utils/auth";
 
-function commentForm(props) {
+const CommentForm = (props) => {
   const addComment = async (event) => {
     event.preventDefault();
-
+    
     // Get the value of the comment box
     // and make sure it not some empty strings
-    const comment = event.target.elements.comment.value.trim();
+    const comment = document.getElementById("comment-text").value.trim();
     const name = Auth.getProfile().data.username;
 
     // Get the current time.
@@ -34,33 +34,55 @@ function commentForm(props) {
       });
 
       // Clear input fields
-      event.target.elements.comment.value = "";
+      document.getElementById("comment-text").value = "";
     }
   };
+
+  // Submit the comment when the Enter key is pressed
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addComment(event);
+      }
+    };
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, []);
+  
   return (
     <div className="container" id="comment-form-container">
       {Auth.loggedIn() ? (
         <>
-          <form onSubmit={addComment}>
+          <form className="comment-form" onSubmit={addComment}>
             <div className="field" id="comment-box">
               <div className="control">
                 <textarea
                   className="textarea"
+                  id="comment-text"
                   name="comment"
                   placeholder="Add a comment here"
                 ></textarea>
               </div>
             </div>
             <div className="field" id="submit-comment">
-              <button className="button is-primary">Submit</button>
+              <button className="button is-primary" type="submit">
+                Submit
+              </button>
             </div>
           </form>
         </>
       ) : (
-        <h1 className="title">You must login before leaving a comment!</h1>
+        <h1 className="title login-error">
+          You must login before leaving a comment!
+        </h1>
       )}
     </div>
   );
-}
+};
 
-export default commentForm;
+export default CommentForm;
