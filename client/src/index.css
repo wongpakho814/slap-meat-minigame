@@ -9,6 +9,10 @@ body {
   margin: 0px;
 }
 
+section {
+  display: table-cell !important;
+}
+
 .btn-success,
 .btn-success:disabled {
   color: #343a40 !important;
@@ -33,7 +37,7 @@ body {
 }
 
 #main-div,
-#comment-area-section {
+#meat-area-section div {
   height: calc(100vh - 110px);
 }
 
@@ -104,6 +108,16 @@ body {
 
 .user-name + .message-date {
   margin-left: 10px;
+}
+
+#meat-area-section {
+  width: 60%;
+}
+
+#meat-area-section div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 footer {

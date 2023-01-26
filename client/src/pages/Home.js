@@ -42,16 +42,23 @@ class Home extends Component {
   }
   render() {
     return (
-      <section className="section" id="comment-area-section">
-        <div className="container" id="comment-area-container">
-          <div className="columns">
-            <div className="column">
-              <Comments comments={this.state.comments} />
-              <CommentForm />
+      <>
+        <section id="comment-area-section">
+          <div className="container" id="comment-area-container">
+            <div className="columns">
+              <div className="column">
+                <Comments comments={this.state.comments} />
+                <CommentForm />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <section id="meat-area-section">
+          <div>
+            <img alt="meat pic" src={require("../images/Raw-steak-on-transparent-background.png")} />
+          </div>
+        </section>
+      </>
     );
   }
 }
