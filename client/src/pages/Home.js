@@ -17,7 +17,7 @@ class Home extends Component {
     channel.once("attached", () => {
       channel.history((err, page) => {
         // create a new array with comments in reverse order (old to new)
-        const comments = Array.from(page.items, (item) => item.data);
+        const comments = Array.from(page.items, (item) => item.data).reverse();
         this.setState({ comments });
         channel.subscribe((msg) => {
           this.handleAddComment(msg.data);
