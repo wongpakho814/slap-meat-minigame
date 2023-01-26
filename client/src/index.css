@@ -20,6 +20,11 @@ section {
   border-color: #ffbd03 !important;
 }
 
+#table-div {
+  display: table;
+  width: 100%;
+}
+
 .nav-pills .nav-link.active {
   background-color: #343a40 !important;
 }
@@ -36,9 +41,14 @@ section {
   text-align: center;
 }
 
+#table-div,
 #main-div,
 #meat-area-section div {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 112px);
+}
+
+#main-div {
+  display: table-row;
 }
 
 #comment-area-section {

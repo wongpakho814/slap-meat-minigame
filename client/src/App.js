@@ -36,8 +36,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div>
-          <Nav />
+        <Nav />
+        <div id="table-div">
           <div id="main-div">
             <Routes>
               <Route path="/" element={<Home />} />
