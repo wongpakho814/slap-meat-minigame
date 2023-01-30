@@ -23,3 +23,12 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const UPDATE_TIME_PETTED = gql`
+  mutation updateTimePetted($timePetted: Int!) {
+    updateTimePetted(timePetted: $timePetted) {
+      _id
+      timePetted
+    }
+  }
+`;

@@ -8,8 +8,7 @@ const CommentForm = (props) => {
   const addComment = async (event) => {
     event.preventDefault();
     
-    // Get the value of the comment box
-    // and make sure it not some empty strings
+    // Get the value of the comment box and make sure it not some empty strings
     const comment = document.getElementById("comment-text").value.trim();
     const name = Auth.getProfile().data.username;
 

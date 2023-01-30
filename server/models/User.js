@@ -18,11 +18,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-  },
-  // set this to use virtual below
-  {
-    toJSON: {
-      virtuals: true,
+    timePetted: {
+      type: Number,
+      default: 0,
     },
   }
 );
