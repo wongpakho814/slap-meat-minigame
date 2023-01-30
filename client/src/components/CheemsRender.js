@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import useState from "react-usestateref";
 import cheems10 from "../images/pet-animation-10.gif";
 import cheemsStatic from "../images/pet-animation-static.png";
@@ -16,13 +16,23 @@ const CheemsRender = () => {
   const { error, data } = useQuery(GET_ME);
   const [updateTimePetted] = useMutation(UPDATE_TIME_PETTED);
 
+  const incNbrRec = useCallback((i, endNbr) => {
+    if (i <= endNbr && !ready) {
+      setSeconds(i);
+      setTimeout(function () {
+        incNbrRec(i + 1, endNbr);
+      }, 10);
+    }
+  }, [ready, setSeconds]);
+
   // get the user's accumulated timePetted here
   useEffect(() => {
     if (data) {
-      setSeconds(data.me.timePetted);
+      //   setSeconds(data.me.timePetted);
+      incNbrRec(0, data.me.timePetted);
       setReady(true);
     }
-  }, [data, setSeconds]);
+  }, [data, incNbrRec]);
 
   const startTimer = () => {
     setInterval(() => {
@@ -49,7 +59,8 @@ const CheemsRender = () => {
         ) : (
           ready && (
             <span id="counter">
-              You have petted Cheems for {seconds}s in total! Hope it'll get
+              You have petted Cheems for{" "}
+              <span id="counter-span">{seconds}s</span> in total! Hope it'll get
               happy soon :D
             </span>
           )

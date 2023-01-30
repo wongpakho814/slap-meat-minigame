@@ -122,6 +122,7 @@ section {
 
 #cheems-area-section {
   width: 60%;
+  text-align: center;
 }
 
 #cheems-area-section div {
@@ -129,6 +130,15 @@ section {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#counter span {
+  color: #ffbd03;
+  font-size: 120%;
+}
+
+#press-image-span {
+  color: gray;
 }
 
 #cheems-area-section img {
