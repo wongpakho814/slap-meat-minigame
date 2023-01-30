@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback } from "react";
 import useState from "react-usestateref";
 import cheems10 from "../images/pet-animation-10.gif";
+import cheems30 from "../images/pet-animation-30.gif";
+import cheems50 from "../images/pet-animation-50.gif";
 import cheemsStatic from "../images/pet-animation-static.png";
 
 import { useQuery, useMutation } from "@apollo/client";
@@ -13,22 +15,38 @@ const CheemsRender = () => {
   const [playGif, setPlayGif] = useState(false);
   const [seconds, setSeconds, secondsRef] = useState(0);
   const [ready, setReady] = useState(false);
+  const [imgSrc, setImgSrc] = useState(cheems10);
   const { error, data } = useQuery(GET_ME);
   const [updateTimePetted] = useMutation(UPDATE_TIME_PETTED);
 
-  const incNbrRec = useCallback((i, endNbr) => {
-    if (i <= endNbr && !ready) {
-      setSeconds(i);
-      setTimeout(function () {
-        incNbrRec(i + 1, endNbr);
-      }, 10);
-    }
-  }, [ready, setSeconds]);
+  // Function to animate the timer on render
+  const incNbrRec = useCallback(
+    (i, endNbr) => {
+      let speed;
+      switch (endNbr) {
+        case endNbr < 100:
+          speed = 25;
+          break;
+        case endNbr > 100 && endNbr < 1000:
+          speed = 10;
+          break;
+        default:
+          speed = 1;
+      }
+
+      if (i <= endNbr && !ready) {
+        setSeconds(i);
+        setTimeout(function () {
+          incNbrRec(i + 1, endNbr);
+        }, speed);
+      }
+    },
+    [ready, setSeconds]
+  );
 
   // get the user's accumulated timePetted here
   useEffect(() => {
     if (data) {
-      //   setSeconds(data.me.timePetted);
       incNbrRec(0, data.me.timePetted);
       setReady(true);
     }
@@ -41,7 +59,23 @@ const CheemsRender = () => {
     }, 1000);
   };
 
-  const onClick = () => {
+  const handleOnChange = (event) => {
+    switch (event.target.value) {
+      case "normal":
+        setImgSrc(cheems10);
+        break;
+      case "fast":
+        setImgSrc(cheems30);
+        break;
+      case "very-fast":
+        setImgSrc(cheems50);
+        break;
+      default:
+        setImgSrc(cheems10);
+    }
+  };
+
+  const handleOnClick = (event) => {
     if (playGif === false) {
       startTimer();
       document.querySelector("#press-image-span").remove();
@@ -62,6 +96,12 @@ const CheemsRender = () => {
               You have petted Cheems for{" "}
               <span id="counter-span">{seconds}s</span> in total! Hope it'll get
               happy soon :D
+              <br />
+              <select name="speed" id="speed" onChange={handleOnChange}>
+                <option value="normal">Normal</option>
+                <option value="fast">Kinda fast</option>
+                <option value="very-fast">WOOOOOOOO</option>
+              </select>
             </span>
           )
         ))}
@@ -70,9 +110,10 @@ const CheemsRender = () => {
           Press the image to start petting Cheems!
         </span>
         <img
+          id="cheems-pic"
           alt="cheems pic"
-          src={playGif ? cheems10 : cheemsStatic}
-          onClick={() => onClick()}
+          src={playGif ? imgSrc : cheemsStatic}
+          onClick={() => handleOnClick()}
         />
       </div>
     </>

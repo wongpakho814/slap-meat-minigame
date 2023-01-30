@@ -44,7 +44,7 @@ section {
 #table-div,
 #main-div,
 #cheems-area-section div {
-  height: calc(100vh - 112px);
+  height: calc(100vh - 140px);
 }
 
 #main-div {
