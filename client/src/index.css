@@ -43,7 +43,7 @@ section {
 
 #table-div,
 #main-div,
-#meat-area-section div {
+#cheems-area-section div {
   height: calc(100vh - 112px);
 }
 
@@ -120,17 +120,18 @@ section {
   margin-left: 10px;
 }
 
-#meat-area-section {
+#cheems-area-section {
   width: 60%;
 }
 
-#meat-area-section div {
+#cheems-area-section div {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-#meat-area-section img {
+#cheems-area-section img {
   width: 50%;
 }
 

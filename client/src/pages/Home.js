@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Ably from "../components/Ably";
 import CommentForm from "../components/CommentForm";
 import Comments from "../components/Comments";
-import cheems10 from "../images/pet-animation-10.gif";
-import cheemsStatic from "../images/pet-animation-static.png";
+import CheemsRender from "../components/CheemsRender";
 
 class Home extends Component {
   constructor(props) {
@@ -11,7 +10,6 @@ class Home extends Component {
     this.handleAddComment = this.handleAddComment.bind(this);
     this.state = {
       comments: [],
-      playGif: false
     };
   }
   componentDidMount() {
@@ -56,18 +54,8 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <section id="meat-area-section">
-          <div>
-            <img
-              alt="cheems pic"
-              src={this.state.playGif ? cheems10 : cheemsStatic}
-              onClick={() =>
-                this.setState((prevState) => {
-                  return { playGif: !prevState.playGif };
-                })
-              }
-            />
-          </div>
+        <section id="cheems-area-section">
+          <CheemsRender />
         </section>
       </>
     );
