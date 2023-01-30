@@ -55,7 +55,7 @@ class Home extends Component {
         </section>
         <section id="meat-area-section">
           <div>
-            <img alt="meat pic" src={require("../images/Raw-steak-on-transparent-background.png")} />
+            <img alt="meat pic" src={require("../images/pet-animation-10.gif")} />
           </div>
         </section>
       </>

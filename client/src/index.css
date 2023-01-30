@@ -130,6 +130,10 @@ section {
   align-items: center;
 }
 
+#meat-area-section img {
+  width: 50%;
+}
+
 footer {
   padding: 10px;
   text-align: center;
