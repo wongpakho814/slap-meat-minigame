@@ -29,6 +29,7 @@ section {
   width: 100%;
 }
 
+/* Nav */
 .nav-pills .nav-link.active {
   background-color: #343a40 !important;
 }
@@ -39,6 +40,11 @@ section {
 
 .nav-item a:hover {
   color: black;
+}
+
+#login-btn,
+#sign-up-btn {
+  width: 100%;
 }
 
 /* For Leaderboard */
