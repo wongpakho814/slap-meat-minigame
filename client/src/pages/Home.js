@@ -14,6 +14,7 @@ class Home extends Component {
       isMobile: false,
     };
   }
+  
   componentDidMount() {
     this.updatePredicate();
     window.addEventListener("resize", this.updatePredicate);

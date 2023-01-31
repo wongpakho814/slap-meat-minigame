@@ -228,8 +228,7 @@ tr td:last-child {
 footer {
   padding: 10px;
   text-align: center;
-  position: fixed;
-  bottom: 0;
+  position: absolute;
   width: 100%;
   background-color: #343a40;
 }

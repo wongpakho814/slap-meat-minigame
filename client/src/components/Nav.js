@@ -1,14 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Ably from "../components/Ably";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
+import MobileComments from "../components/MobileComments";
+import MobileCommentForm from "../components/MobileCommentForm";
 
 import Auth from "../utils/auth";
+import useWindowSize from "../utils/useWindowSize";
 
 const AppNavbar = () => {
   // set modal display state
-  const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const size = useWindowSize();
+
+  // For comment section
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const channel = Ably.channels.get("comments");
+    channel.attach();
+    channel.once("attached", () => {
+      channel.history((err, page) => {
+        // create a new array with comments in reverse order (old to new)
+        const comments = Array.from(page.items, (item) => item.data).reverse();
+        setComments(comments);
+        channel.subscribe((msg) => {
+          handleAddComment(msg.data);
+        });
+      });
+    });
+  })
+  
+  const handleAddComment = (comment) => {
+    setComments((prevState) => {
+      let newState = prevState;
+      // Remove the oldest comment if there are 5 comments being rendered on screen already
+      if (prevState.comments.length > 5) {
+        newState = prevState.comments.shift();
+        newState = prevState.comments.concat([comment]);
+      } else {
+        newState = prevState.comments.concat([comment]);
+      }
+      return {
+        comments: newState,
+      };
+    });
+  }
 
   return (
     <>
@@ -29,19 +69,25 @@ const AppNavbar = () => {
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>
+                <Nav.Link onClick={() => setShowLoginModal(true)}>
                   Login/Sign Up
+                </Nav.Link>
+              )}
+              {size.width < 768 && (
+                <Nav.Link onClick={() => setShowCommentModal(true)}>
+                  Comments
                 </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* set modal data up */}
+
+      {/* set login modal data up */}
       <Modal
         size="lg"
-        show={showModal}
-        onHide={() => setShowModal(false)}
+        show={showLoginModal}
+        onHide={() => setShowLoginModal(false)}
         aria-labelledby="signup-modal"
       >
         {/* tab container to do either signup or login component */}
@@ -61,10 +107,33 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                <LoginForm handleModalClose={() => setShowLoginModal(false)} />
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm handleModalClose={() => setShowLoginModal(false)} />
+              </Tab.Pane>
+            </Tab.Content>
+          </Modal.Body>
+        </Tab.Container>
+      </Modal>
+
+      {/* set comment modal data up */}
+      <Modal
+        size="lg"
+        show={showCommentModal}
+        onHide={() => setShowCommentModal(false)}
+        aria-labelledby="-modal"
+      >
+        {/* tab container to do either signup or login component */}
+        <Tab.Container>
+          <Modal.Header closeButton>
+            <Modal.Title>Comment Section</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Tab.Content>
+              <Tab.Pane>
+                <MobileComments comments={comments} />
+                <MobileCommentForm />
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>
