@@ -44,6 +44,16 @@ const CheemsRender = () => {
     [ready, setSeconds]
   );
 
+  // Function to change the height of multiple divs when user is logged in
+  useEffect(() => {
+    if (Auth.loggedIn()) {
+      const newHeight = "calc(100vh - 166px)";
+      document.querySelector("#table-div").style.height = newHeight;
+      document.querySelector("#main-div").style.height = newHeight;
+      document.querySelector("#cheems-area-section div").style.height = newHeight;
+    }
+  });
+
   // get the user's accumulated timePetted here
   useEffect(() => {
     if (data) {
@@ -53,10 +63,12 @@ const CheemsRender = () => {
   }, [data, incNbrRec]);
 
   const startTimer = () => {
-    setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-      updateTimePetted({ variables: { timePetted: secondsRef.current } });
-    }, 1000);
+    if (Auth.loggedIn()) {
+      setInterval(() => {
+        setSeconds((seconds) => seconds + 1);
+        updateTimePetted({ variables: { timePetted: secondsRef.current } });
+      }, 1000);
+    }
   };
 
   const handleOnChange = (event) => {

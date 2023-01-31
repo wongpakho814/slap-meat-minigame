@@ -10,7 +10,7 @@ import { setContext } from "@apollo/client/link/context";
 
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
-import Highscore from "./pages/Highscore";
+import Leaderboard from "./pages/Leaderboard";
 import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
@@ -41,7 +41,7 @@ function App() {
           <div id="main-div">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/highscore" element={<Highscore />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
             </Routes>
           </div>
           <Footer />

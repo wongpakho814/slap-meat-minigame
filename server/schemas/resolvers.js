@@ -5,7 +5,7 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find();
+      return User.find().limit(20).sort({ timePetted: -1 });;
     },
     me: async (parent, args, context) => {
       if (context.user) {
