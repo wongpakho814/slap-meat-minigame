@@ -41,6 +41,7 @@ section {
   color: black;
 }
 
+/* For Leaderboard */
 .wrapper {
   display: flex;
   justify-content: center;
@@ -130,6 +131,7 @@ tr td:last-child {
   display: table-row;
 }
 
+/* For the comment section (both desktop and mobile) */
 #comment-area-section {
   position: relative;
   width: 40%;
@@ -143,20 +145,28 @@ tr td:last-child {
   padding: 0px;
 }
 
-#comment-section {
+#comment-section,
+#mobile-comment-section {
   padding: 5px;
 }
 
-#comment-form-container {
+#mobile-comment-section {
+  display: block !important;
+}
+
+#comment-form-container,
+#mobile-comment-form-container {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-#comment-box {
+#comment-box,
+#mobile-comment-box {
   width: 100%;
 }
 
 #comment-box,
+#mobile-comment-box,
 #submit-comment {
   padding: 0px;
 }
@@ -165,23 +175,32 @@ tr td:last-child {
   display: flex;
 }
 
-#comment-box textarea {
+.mobile-comment-form {
+  display: inline-flex;
+  width: 100%;
+}
+
+#comment-box textarea,
+#mobile-comment-box textarea {
   display: inline-block;
   resize: none;
 }
 
-#comment-box .textarea:not([rows]) {
+#comment-box .textarea:not([rows]),
+#mobile-comment-box .textarea:not([rows]) {
   max-height: 50px;
   min-height: 50px;
 }
 
-#submit-comment {
+#submit-comment,
+#submit-mobile-comment {
   display: inline-block;
   height: 50px;
   margin-bottom: -10px;
 }
 
-#submit-comment button {
+#submit-comment button,
+#submit-mobile-comment button {
   height: 50px;
 }
 
@@ -199,6 +218,7 @@ tr td:last-child {
   margin-left: 10px;
 }
 
+/* For rendering Cheems */
 #cheems-area-section {
   width: 60%;
   text-align: center;
@@ -225,6 +245,7 @@ tr td:last-child {
   width: 50%;
 }
 
+/* Footer */
 footer {
   padding: 10px;
   text-align: center;

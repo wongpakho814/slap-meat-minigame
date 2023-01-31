@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import Ably from "../components/Ably";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignUpForm";
@@ -10,45 +9,11 @@ import MobileCommentForm from "../components/MobileCommentForm";
 import Auth from "../utils/auth";
 import useWindowSize from "../utils/useWindowSize";
 
-const AppNavbar = () => {
+const AppNavbar = (props) => {
   // set modal display state
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCommentModal, setShowCommentModal] = useState(false);
   const size = useWindowSize();
-
-  // For comment section
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    const channel = Ably.channels.get("comments");
-    channel.attach();
-    channel.once("attached", () => {
-      channel.history((err, page) => {
-        // create a new array with comments in reverse order (old to new)
-        const comments = Array.from(page.items, (item) => item.data).reverse();
-        setComments(comments);
-        channel.subscribe((msg) => {
-          handleAddComment(msg.data);
-        });
-      });
-    });
-  })
-  
-  const handleAddComment = (comment) => {
-    setComments((prevState) => {
-      let newState = prevState;
-      // Remove the oldest comment if there are 5 comments being rendered on screen already
-      if (prevState.comments.length > 5) {
-        newState = prevState.comments.shift();
-        newState = prevState.comments.concat([comment]);
-      } else {
-        newState = prevState.comments.concat([comment]);
-      }
-      return {
-        comments: newState,
-      };
-    });
-  }
 
   return (
     <>
@@ -125,14 +90,14 @@ const AppNavbar = () => {
         aria-labelledby="-modal"
       >
         {/* tab container to do either signup or login component */}
-        <Tab.Container>
+        <Tab.Container defaultActiveKey="comment">
           <Modal.Header closeButton>
-            <Modal.Title>Comment Section</Modal.Title>
+            <Modal.Title id="comment-modal">Comment Section</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Tab.Content>
-              <Tab.Pane>
-                <MobileComments comments={comments} />
+              <Tab.Pane eventKey="comment">
+                <MobileComments comments={props.comments} />
                 <MobileCommentForm />
               </Tab.Pane>
             </Tab.Content>

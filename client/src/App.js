@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useState from "react-usestateref";
+import Ably from "./components/Ably";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   ApolloClient,
@@ -29,18 +31,45 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(), 
+  cache: new InMemoryCache(),
 });
 
-function App() {
+const App = () => {
+  // For comment section
+  const [comments, setComments, commentsRef] = useState([]);
+
+  useEffect(() => {
+    const channel = Ably.channels.get("comments");
+    channel.attach();
+    channel.once("attached", () => {
+      channel.history((err, page) => {
+        // create a new array with comments in reverse order (old to new)
+        const comments = Array.from(page.items, (item) => item.data).reverse();
+        setComments(comments);
+        channel.subscribe((msg) => {
+          handleAddComment(msg.data);
+        });
+      });
+    });
+  });
+
+  const handleAddComment = (comment) => {
+    setComments(
+      // Remove the oldest comment if there are 5 comments being rendered on screen already
+      commentsRef.current.length > 5
+        ? commentsRef.current.shift().concat([comment])
+        : commentsRef.current.concat([comment])
+    );
+  };
+
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Nav />
+        <Nav comments={comments} />
         <div id="table-div">
           <div id="main-div">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home comments={comments} />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
             </Routes>
           </div>
@@ -49,6 +78,6 @@ function App() {
       </Router>
     </ApolloProvider>
   );
-}
+};
 
 export default App;
