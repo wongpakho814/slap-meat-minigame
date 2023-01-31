@@ -15,32 +15,34 @@ const Highscore = () => {
         <div className="wrapper">
           <table>
             <caption>Leaderboard (total 20)</caption>
-            <tr>
-              <th>Username</th>
-              <th>Time</th>
-            </tr>
+            <tbody>
+              <tr>
+                <th>Username</th>
+                <th>Time</th>
+              </tr>
 
-            {data &&
-              data.users.map((user) =>
-                Auth.loggedIn() ? (
-                  <tr
-                    key={user._id}
-                    className={
-                      Auth.getProfile().data.username === user.username
-                        ? "player"
-                        : ""
-                    }
-                  >
-                    <td>{user.username}</td>
-                    <td>{user.timePetted}</td>
-                  </tr>
-                ) : (
-                  <tr key={user._id}>
-                    <td>{user.username}</td>
-                    <td>{user.timePetted}</td>
-                  </tr>
-                )
-              )}
+              {data &&
+                data.users.map((user) =>
+                  Auth.loggedIn() ? (
+                    <tr
+                      key={user._id}
+                      className={
+                        Auth.getProfile().data.username === user.username
+                          ? "player"
+                          : ""
+                      }
+                    >
+                      <td>{user.username}</td>
+                      <td>{user.timePetted}</td>
+                    </tr>
+                  ) : (
+                    <tr key={user._id}>
+                      <td>{user.username}</td>
+                      <td>{user.timePetted}</td>
+                    </tr>
+                  )
+                )}
+            </tbody>
           </table>
         </div>
       )}

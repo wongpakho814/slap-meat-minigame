@@ -8,11 +8,16 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.handleAddComment = this.handleAddComment.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
     this.state = {
       comments: [],
+      isMobile: false,
     };
   }
   componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener("resize", this.updatePredicate);
+
     const channel = Ably.channels.get("comments");
     channel.attach();
     channel.once("attached", () => {
@@ -26,6 +31,15 @@ class Home extends Component {
       });
     });
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updatePredicate);
+  }
+
+  updatePredicate() {
+    this.setState({ isMobile: window.innerWidth < 768 });
+  }
+
   handleAddComment(comment) {
     this.setState((prevState) => {
       let newState = prevState;
@@ -44,7 +58,7 @@ class Home extends Component {
   render() {
     return (
       <>
-        <section id="comment-area-section">
+        <section id="comment-area-section" className={this.state.isMobile ? "hidden" : "" }>
           <div className="container" id="comment-area-container">
             <div className="columns">
               <div className="column">

@@ -13,6 +13,10 @@ section {
   display: table-cell !important;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .btn-success,
 .btn-success:disabled {
   color: #343a40 !important;
@@ -198,6 +202,7 @@ tr td:last-child {
 #cheems-area-section {
   width: 60%;
   text-align: center;
+  margin: auto;
 }
 
 #cheems-area-section div {
