@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignUpForm";
@@ -14,6 +14,13 @@ const AppNavbar = (props) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCommentModal, setShowCommentModal] = useState(false);
   const size = useWindowSize();
+
+  const commentsEndRef = useRef();
+  
+  useEffect(() => {
+    if (!commentsEndRef.current) return;
+    commentsEndRef.current.scrollIntoView({ behavior: "auto" });
+  }, [props.comments, showCommentModal]);
 
   return (
     <>
@@ -89,8 +96,8 @@ const AppNavbar = (props) => {
         onHide={() => setShowCommentModal(false)}
         aria-labelledby="-modal"
       >
-        {/* tab container to do either signup or login component */}
-        <Tab.Container defaultActiveKey="comment">
+        {/* tab container to do a comment component */}
+        <Tab.Container id="comment-modal-container" defaultActiveKey="comment">
           <Modal.Header closeButton>
             <Modal.Title id="comment-modal">Comment Section</Modal.Title>
           </Modal.Header>
@@ -99,6 +106,7 @@ const AppNavbar = (props) => {
               <Tab.Pane eventKey="comment">
                 <MobileComments comments={props.comments} />
                 <MobileCommentForm />
+                <div ref={commentsEndRef} />
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>

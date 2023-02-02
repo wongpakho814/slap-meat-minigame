@@ -57,7 +57,7 @@ const App = () => {
     setComments(
       // Remove the oldest comment if there are 5 comments being rendered on screen already
       commentsRef.current.length > 5
-        ? commentsRef.current.shift().concat([comment])
+        ? (commentsRef.current.shift(), commentsRef.current.concat([comment]))
         : commentsRef.current.concat([comment])
     );
   };
