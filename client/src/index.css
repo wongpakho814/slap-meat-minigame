@@ -3,8 +3,7 @@ html {
 }
 
 body {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Permanent Marker" !important;
   background-color: #d9dcd6;
   margin: 0px;
 }
@@ -30,6 +29,12 @@ section {
 }
 
 /* Nav */
+.navbar-brand {
+  font-family: "Fantasy", Marker Felt, fantasy;
+  padding-top: 0.5rem !important;
+  font-size: 1.5rem !important;
+}
+
 .nav-pills .nav-link.active {
   background-color: #343a40 !important;
 }
@@ -239,6 +244,10 @@ tr td:last-child {
   overflow: hidden;
 }
 
+#cheems-area-section span {
+  font-family: "Architects Daughter"
+}
+
 #speed {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -246,7 +255,7 @@ tr td:last-child {
 
 #counter span {
   color: #ffbd03;
-  font-size: 120%;
+  font-size: 200%;
 }
 
 #press-image-span {
