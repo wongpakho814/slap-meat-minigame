@@ -233,9 +233,15 @@ tr td:last-child {
 
 #cheems-area-section div {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  overflow: hidden;
+}
+
+#speed {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #counter span {
@@ -248,7 +254,7 @@ tr td:last-child {
 }
 
 #cheems-area-section img {
-  width: 50%;
+  width: 65%;
 }
 
 /* Footer */

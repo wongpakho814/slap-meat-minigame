@@ -106,7 +106,7 @@ const CheemsRender = () => {
           ready && (
             <span id="counter">
               You have petted Cheems for{" "}
-              <span id="counter-span">{seconds}s</span> in total! Hope it'll get
+              <span id="counter-span">{seconds}s</span> in total! <br /> Hope it'll get
               happy soon :D
               <br />
               <select name="speed" id="speed" onChange={handleOnChange}>
