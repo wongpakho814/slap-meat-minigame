@@ -8,6 +8,12 @@ body {
   margin: 0px;
 }
 
+.form-control,
+#comment-text,
+.content p {
+  font-family: "Cabin Sketch"
+}
+
 section {
   display: table-cell !important;
 }
@@ -66,6 +72,10 @@ table {
   text-align: center;
 }
 
+tbody {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 caption {
   color: white;
   margin-bottom: 7px;
@@ -95,11 +105,6 @@ th:first-child {
 th:last-child {
   border-top-right-radius: 5px;
   border-right: none;
-}
-
-th:first-child,
-td:first-child {
-  padding: 7px 8px;
 }
 
 td {
