@@ -27,7 +27,7 @@ const AppNavbar = (props) => {
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            Pet the Cheems
+            PET THE CHEEEEEEEMS
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
